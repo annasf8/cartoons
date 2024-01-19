@@ -4,16 +4,21 @@ import openai
 from gtts import gTTS
 from moviepy.editor import *
 from requests import get
-from api_key import OPENAI_API_KEY
+# from api_key import OPENAI_API_KEY
 from openai import OpenAI
-client = OpenAI(api_key=OPENAI_API_KEY)
+
+# client = OpenAI(api_key=OPENAI_API_KEY)
 # Set your OpenAI API key
-openai.api_key = OPENAI_API_KEY
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+# openai.api_key = OPENAI_API_KEY
+from dotenv import load_dotenv, find_dotenv
+import os
+load_dotenv(find_dotenv())
 
 # Read the  file
 with open("test_case.py", "r") as file:
     text = file.read()
-
+openai.api_key = os.getenv('OPENAI_API_KEY')
 # Split the text by , and .
 paragraphs = re.split(r"[,.]", text)
 
